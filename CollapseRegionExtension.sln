@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2016
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollapseRegionExtension", "CollapseRegionExtension\CollapseRegionExtension.csproj", "{951F86CB-5978-4167-9489-CF0AA0F47776}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollapseRegionVS2022", "VS2022\CollapseRegionVS2022.csproj", "{951F86CB-5978-4167-9489-CF0AA0F47776}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "CollapseRegionCommon", "Common\CollapseRegionCommon.shproj", "{54E2047F-59B4-4198-81EA-F50CDF04050B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollapseRegionVS2017", "VS2017\CollapseRegionVS2017.csproj", "{6D66EA76-7435-4D6B-AA3F-9F62D948BCE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollapseRegionVS2019", "VS2019\CollapseRegionVS2019.csproj", "{6A856C23-0264-4625-9FA3-4CB702138FDE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,11 +21,25 @@ Global
 		{951F86CB-5978-4167-9489-CF0AA0F47776}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{951F86CB-5978-4167-9489-CF0AA0F47776}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{951F86CB-5978-4167-9489-CF0AA0F47776}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D66EA76-7435-4D6B-AA3F-9F62D948BCE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D66EA76-7435-4D6B-AA3F-9F62D948BCE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D66EA76-7435-4D6B-AA3F-9F62D948BCE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D66EA76-7435-4D6B-AA3F-9F62D948BCE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A856C23-0264-4625-9FA3-4CB702138FDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A856C23-0264-4625-9FA3-4CB702138FDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A856C23-0264-4625-9FA3-4CB702138FDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A856C23-0264-4625-9FA3-4CB702138FDE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {49128312-AF11-42F9-B642-5C594659EDC9}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Common\CollapseRegionCommon.projitems*{54e2047f-59b4-4198-81ea-f50cdf04050b}*SharedItemsImports = 13
+		Common\CollapseRegionCommon.projitems*{6a856c23-0264-4625-9fa3-4cb702138fde}*SharedItemsImports = 4
+		Common\CollapseRegionCommon.projitems*{6d66ea76-7435-4d6b-aa3f-9f62d948bce3}*SharedItemsImports = 4
+		Common\CollapseRegionCommon.projitems*{951f86cb-5978-4167-9489-cf0aa0f47776}*SharedItemsImports = 4
 	EndGlobalSection
 EndGlobal

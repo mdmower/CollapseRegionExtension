@@ -1,19 +1,13 @@
-﻿using Microsoft.VisualStudio.ComponentModelHost;
-using Microsoft.VisualStudio.Editor;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.VisualStudio.Text;
-using Microsoft.VisualStudio.Text.Editor;
-using Microsoft.VisualStudio.Text.Outlining;
-using Microsoft.VisualStudio.TextManager.Interop;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
-using System.Globalization;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.ComponentModelHost;
+using Microsoft.VisualStudio.Editor;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Text;
+using Microsoft.VisualStudio.Text.Outlining;
+using Microsoft.VisualStudio.TextManager.Interop;
 using Task = System.Threading.Tasks.Task;
 
 namespace CollapseRegionExtension
@@ -41,7 +35,7 @@ namespace CollapseRegionExtension
         /// <summary>
         /// VS Package that provides this command, not null.
         /// </summary>
-        private readonly AsyncPackage package;
+        private readonly AsyncPackage _package;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RegionCommands"/> class.
@@ -51,15 +45,15 @@ namespace CollapseRegionExtension
         /// <param name="commandService">Command service to add command to, not null.</param>
         private RegionCommands(AsyncPackage package, OleMenuCommandService commandService)
         {
-            this.package = package ?? throw new ArgumentNullException(nameof(package));
+            _package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
 
             var explandCommandID = new CommandID(CommandSet, ExpandCommandId);
-            var expandMenuItem = new MenuCommand(this.Expand, explandCommandID);
+            var expandMenuItem = new MenuCommand(Expand, explandCommandID);
             commandService.AddCommand(expandMenuItem);
 
             var collapseCommandID = new CommandID(CommandSet, CollapseCommandId);
-            var collapseMenuItem = new MenuCommand(this.Collapse, collapseCommandID);
+            var collapseMenuItem = new MenuCommand(Collapse, collapseCommandID);
             commandService.AddCommand(collapseMenuItem);
         }
 
@@ -75,13 +69,7 @@ namespace CollapseRegionExtension
         /// <summary>
         /// Gets the service provider from the owner package.
         /// </summary>
-        private Microsoft.VisualStudio.Shell.IAsyncServiceProvider ServiceProvider
-        {
-            get
-            {
-                return this.package;
-            }
-        }
+        private IAsyncServiceProvider ServiceProvider => _package;
 
         /// <summary>
         /// Initializes the singleton instance of the command.
@@ -93,52 +81,75 @@ namespace CollapseRegionExtension
             // the UI thread.
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
-            OleMenuCommandService commandService = await package.GetServiceAsync((typeof(IMenuCommandService))) as OleMenuCommandService;
+            var commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             Instance = new RegionCommands(package, commandService);
         }
 
-        private async void Expand(object sender, EventArgs e)
+        private void Expand(object sender, EventArgs e)
         {
-            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
-
-            var (manager, regions) = await GetCurrentDocInfoAsync();
-            foreach (var region in regions)
+            ThreadHelper.ThrowIfNotOnUIThread();
+            _ = _package.JoinableTaskFactory.RunAsync(async () =>
             {
-                if (region is ICollapsed collapsed)
+                if (_package.DisposalToken.IsCancellationRequested)
                 {
-                    manager.Expand(collapsed);
+                    return;
                 }
-            }
+
+                try
+                {
+                    var (manager, regions) = await GetCurrentDocInfoAsync();
+                    foreach (var region in regions)
+                    {
+                        if (region is ICollapsed collapsed)
+                        {
+                            manager.Expand(collapsed);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ActivityLog.LogError(ex.Source, ex.Message);
+                }
+            });
         }
 
-        private async void Collapse(object sender, EventArgs e)
+        private void Collapse(object sender, EventArgs e)
         {
-            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
-
-            var (manager, regions) = await GetCurrentDocInfoAsync();
-            foreach (var region in regions)
+            ThreadHelper.ThrowIfNotOnUIThread();
+            _ = _package.JoinableTaskFactory.RunAsync(async () =>
             {
-                if (region.IsCollapsed == false)
+                if (_package.DisposalToken.IsCancellationRequested)
                 {
-                    manager.TryCollapse(region);
+                    return;
                 }
-            }
+
+                try
+                {
+                    var (manager, regions) = await GetCurrentDocInfoAsync();
+                    foreach (var region in regions)
+                    {
+                        if (region.IsCollapsed == false)
+                        {
+                            manager.TryCollapse(region);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ActivityLog.LogError(ex.Source, ex.Message);
+                }
+            });
         }
 
         private async Task<(IOutliningManager manager, IEnumerable<ICollapsible> regions)> GetCurrentDocInfoAsync()
         {
             var emptyResult = (default(IOutliningManager), new ICollapsible[] { });
 
-            var textManager = await ServiceProvider.GetServiceAsync(typeof(SVsTextManager)) as IVsTextManager;
-            var componentModel = await this.ServiceProvider.GetServiceAsync(typeof(SComponentModel)) as IComponentModel;
+            var textManager = await ServiceProvider.GetServiceAsync(typeof(SVsTextManager)) as IVsTextManager
+                ?? throw new ApplicationException($"{nameof(SVsTextManager)} service is not available.");
+            var componentModel = await ServiceProvider.GetServiceAsync(typeof(SComponentModel)) as IComponentModel
+                ?? throw new ApplicationException($"{nameof(SComponentModel)} service is not available.");
             var outlining = componentModel.GetService<IOutliningManagerService>();
-
-            if (textManager == null || componentModel == null || outlining == null)
-            {
-                System.Diagnostics.Debug.WriteLine("CollapseRegionExtension failed to retrieve vital service.");
-                return emptyResult;
-            }
-
             var editor = componentModel.GetService<IVsEditorAdaptersFactoryService>();
 
             textManager.GetActiveView(1, null, out IVsTextView textViewCurrent);
