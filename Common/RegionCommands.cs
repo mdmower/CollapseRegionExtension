@@ -48,12 +48,12 @@ namespace CollapseRegionExtension
             _package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
 
-            var explandCommandID = new CommandID(CommandSet, ExpandCommandId);
-            var expandMenuItem = new MenuCommand(Expand, explandCommandID);
+            var expandCommandId = new CommandID(CommandSet, ExpandCommandId);
+            var expandMenuItem = new MenuCommand(Expand, expandCommandId);
             commandService.AddCommand(expandMenuItem);
 
-            var collapseCommandID = new CommandID(CommandSet, CollapseCommandId);
-            var collapseMenuItem = new MenuCommand(Collapse, collapseCommandID);
+            var collapseCommandId = new CommandID(CommandSet, CollapseCommandId);
+            var collapseMenuItem = new MenuCommand(Collapse, collapseCommandId);
             commandService.AddCommand(collapseMenuItem);
         }
 
