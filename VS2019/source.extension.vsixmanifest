@@ -5,7 +5,7 @@
         <DisplayName>Collapse Region</DisplayName>
         <Description xml:space="preserve">Collapse/Expand #regions in code editor tabs.</Description>
         <MoreInfo>https://github.com/mdmower/CollapseRegionExtension</MoreInfo>
-        <License>LICENSE.txt</License>
+        <License>LICENSE</License>
         <Icon>Icons\expand.png</Icon>
     </Metadata>
     <Installation>
