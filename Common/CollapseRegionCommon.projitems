@@ -13,9 +13,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)RegionCommandsPackage.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)RegionCommandsPackage.vsct" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)VSPackage.resx" />
   </ItemGroup>
   <ItemGroup>

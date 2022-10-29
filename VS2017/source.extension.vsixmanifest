@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="CollapseRegionExtension.0c27e759-a1dc-4e4b-9795-1aeb944b714f" Version="1.4" Language="en-US" Publisher="Matt Mower" />
+        <Identity Id="CollapseRegionExtension.0c27e759-a1dc-4e4b-9795-1aeb944b714f" Version="1.5" Language="en-US" Publisher="Matt Mower" />
         <DisplayName>Collapse Region</DisplayName>
         <Description xml:space="preserve">Collapse/Expand #regions in code editor tabs.</Description>
         <MoreInfo>https://github.com/mdmower/CollapseRegionExtension</MoreInfo>

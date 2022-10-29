@@ -35,10 +35,12 @@
          other menus or buttons (commands); from a visual point of view you can see the
          group as the part of a menu contained between two lines. The parent of a group
          must be a menu. -->
+    <!--
     <Groups>
-      <Group guid="guidRegionCommandsPackageCmdSet" id="MyMenuGroup" priority="0x0600">
+      <Group guid="guidRegionCommandsPackageCmdSet" id="RegionCommandsGroup" priority="0xFFFF">
       </Group>
     </Groups>
+    -->
 
     <!--Buttons section. -->
     <!--This section defines the elements the user can interact with, like a menu command or a button
@@ -51,27 +53,26 @@
               <CommandFlag>DefaultInvisible</CommandFlag>
               <CommandFlag>DynamicVisibility</CommandFlag>
           If you do not want an image next to your command, remove the Icon node /> -->
-      <Button guid="guidRegionCommandsPackageCmdSet" id="RegionExpandId" priority="0x0100" type="Button">
+      <Button guid="guidRegionCommandsPackageCmdSet" id="RegionExpandId" priority="0xFFFF" type="Button">
+        <Parent guid="guidStdEd" id="IDG_VS_EDITOR_OUTLINING_CMDS" />
         <Strings>
           <LocCanonicalName>RegionManagement.Expand</LocCanonicalName>
           <ButtonText>Expand all regions</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidRegionCommandsPackageCmdSet" id="RegionCollapseId" priority="0x0100" type="Button">
+      <Button guid="guidRegionCommandsPackageCmdSet" id="RegionCollapseId" priority="0xFFFF" type="Button">
+        <Parent guid="guidStdEd" id="IDG_VS_EDITOR_OUTLINING_CMDS" />
         <Strings>
           <LocCanonicalName>RegionManagement.Collapse</LocCanonicalName>
           <ButtonText>Collapse all regions</ButtonText>
         </Strings>
       </Button>
     </Buttons>
-
   </Commands>
 
   <KeyBindings>
-    <KeyBinding guid="guidRegionCommandsPackageCmdSet" id="RegionExpandId"
-      editor="guidVSStd97" key1="R" mod1="Control" key2="VK_ADD" mod2="Control"/>
-    <KeyBinding guid="guidRegionCommandsPackageCmdSet" id="RegionCollapseId"
-      editor="guidVSStd97" key1="R" mod1="Control" key2="VK_SUBTRACT" mod2="Control"/>
+    <KeyBinding guid="guidRegionCommandsPackageCmdSet" id="RegionExpandId" editor="guidVSStd97" key1="R" mod1="Control" key2="VK_ADD" mod2="Control" />
+    <KeyBinding guid="guidRegionCommandsPackageCmdSet" id="RegionCollapseId" editor="guidVSStd97" key1="R" mod1="Control" key2="VK_SUBTRACT" mod2="Control" />
   </KeyBindings>
 
   <Symbols>
@@ -80,7 +81,7 @@
 
     <!-- This is the guid used to group the menu commands together -->
     <GuidSymbol name="guidRegionCommandsPackageCmdSet" value="{155b6515-ed99-4e79-8950-2bdf525871db}">
-      <IDSymbol name="MyMenuGroup" value="0x0200" />
+      <!--<IDSymbol name="RegionCommandsGroup" value="0x0200" />-->
       <IDSymbol name="RegionExpandId" value="0x0100" />
       <IDSymbol name="RegionCollapseId" value="0x0101" />
     </GuidSymbol>
