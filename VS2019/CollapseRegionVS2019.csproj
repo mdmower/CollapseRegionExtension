@@ -46,8 +46,8 @@
     <WarningLevel>4</WarningLevel>
     <CopyOutputSymbolsToOutputDirectory>false</CopyOutputSymbolsToOutputDirectory>
     <IncludeDebugSymbolsInVSIXContainer>false</IncludeDebugSymbolsInVSIXContainer>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\Metadata\Key.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly Condition="Exists('..\Metadata\Key.snk')">true</SignAssembly>
+    <AssemblyOriginatorKeyFile Condition="Exists('..\Metadata\Key.snk')">..\Metadata\Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
