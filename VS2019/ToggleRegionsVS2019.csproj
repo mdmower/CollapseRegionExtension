@@ -90,7 +90,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Validation">
       <Version>16.10.35</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="17.4.2118">
+    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="17.4.2119">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
