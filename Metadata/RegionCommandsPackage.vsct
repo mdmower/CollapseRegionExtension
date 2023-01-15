@@ -77,10 +77,10 @@
 
   <Symbols>
     <!-- This is the package guid. -->
-    <GuidSymbol name="guidRegionCommandsPackage" value="{87e70c51-1e00-4e22-9099-85542c07fdd3}" />
+    <GuidSymbol name="guidRegionCommandsPackage" value="{b4f29fd5-b781-49f9-a404-4dae784250b0}" />
 
     <!-- This is the guid used to group the menu commands together -->
-    <GuidSymbol name="guidRegionCommandsPackageCmdSet" value="{155b6515-ed99-4e79-8950-2bdf525871db}">
+    <GuidSymbol name="guidRegionCommandsPackageCmdSet" value="{e7b8c17f-d4e1-419b-a144-4cfec19ad1a4}">
       <!--<IDSymbol name="RegionCommandsGroup" value="0x0200" />-->
       <IDSymbol name="RegionExpandId" value="0x0100" />
       <IDSymbol name="RegionCollapseId" value="0x0101" />

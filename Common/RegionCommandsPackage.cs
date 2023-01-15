@@ -4,7 +4,7 @@ using System.Threading;
 using Microsoft.VisualStudio.Shell;
 using Task = System.Threading.Tasks.Task;
 
-namespace CollapseRegionExtension
+namespace ToggleRegionsExtension
 {
     /// <summary>
     /// This is the class that implements the package exposed by this assembly.
@@ -24,7 +24,7 @@ namespace CollapseRegionExtension
     /// </para>
     /// </remarks>
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [InstalledProductRegistration("#110", "#112", "1.5", IconResourceID = 400)] // Info on this package for Help/About
+    [InstalledProductRegistration("#110", "#112", "1.6", IconResourceID = 400)] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(RegionCommandsPackage.PackageGuidString)]
     public sealed class RegionCommandsPackage : AsyncPackage
@@ -32,7 +32,7 @@ namespace CollapseRegionExtension
         /// <summary>
         /// RegionCommandsPackage GUID string.
         /// </summary>
-        public const string PackageGuidString = "87e70c51-1e00-4e22-9099-85542c07fdd3";
+        public const string PackageGuidString = "b4f29fd5-b781-49f9-a404-4dae784250b0";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RegionCommandsPackage"/> class.

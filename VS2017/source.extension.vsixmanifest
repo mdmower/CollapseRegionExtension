@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="CollapseRegionExtension.0c27e759-a1dc-4e4b-9795-1aeb944b714f" Version="1.5" Language="en-US" Publisher="Matt Mower" />
-        <DisplayName>Collapse Region</DisplayName>
-        <Description xml:space="preserve">Collapse/Expand #regions in code editor tabs.</Description>
-        <MoreInfo>https://github.com/mdmower/CollapseRegionExtension</MoreInfo>
+        <Identity Id="ToggleRegionsExtension.c5afff3c-058d-40f8-96f1-fd1cc2dcb70d" Version="1.6" Language="en-US" Publisher="Matt Mower" />
+        <DisplayName>Toggle Regions 2017</DisplayName>
+        <Description xml:space="preserve">Collapse or expand #regions in code editor tabs.</Description>
+        <MoreInfo>https://github.com/mdmower/ToggleRegionsExtension</MoreInfo>
         <License>LICENSE</License>
-        <Icon>Icons\expand.png</Icon>
+        <Icon>Icons\extension-icon-128.png</Icon>
+        <PreviewImage>Icons\extension-icon-200.png</PreviewImage>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0, 16.0)">

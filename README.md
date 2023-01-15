@@ -1,17 +1,23 @@
-## Collapse Region Extension for Visual Studio
+## Toggle Regions Extension for Visual Studio
 
-Two new commands are exposed:
-
-- `RegionManagement.Expand` - Default shortcut: CTRL+R, CTRL+Num +
-- `RegionManagement.Collapse` - Default shortcut: CTRL+R, CTRL+Num -
-
-These shortcuts can be remapped in Tools > Options > Environment > Keyboard.
+Quickly collapse or expand all region sections in a code editor tab.
 
 Recognized regions:
 
 - `#region` - .cs files
 - `<!--region` - .xaml files
 - `#pragma region` - .cpp files
+
+### Configurable Commands
+
+Two commands are added to the Outlining menu: "Expand all regions" and "Collapse all regions".
+
+These commands are exposed to Visual Studio as:
+
+- `RegionManagement.Expand` - Default shortcut: CTRL+R, CTRL+Num +
+- `RegionManagement.Collapse` - Default shortcut: CTRL+R, CTRL+Num -
+
+... and can be remapped in Tools > Options > Environment > Keyboard.
 
 ### Compatibility
 
@@ -29,5 +35,6 @@ Release configuration builds can optionally be signed using a strong name keypai
 
 This extension was forked from [Vlad-Herus/CollapseRegionExtension](https://github.com/Vlad-Herus/CollapseRegionExtension).
 
+MIT License  
 Copyright (c) 2022 Matt Mower  
 Copyright (c) 2018 VladimirUAZ

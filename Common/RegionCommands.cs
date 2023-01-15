@@ -10,7 +10,7 @@ using Microsoft.VisualStudio.Text.Outlining;
 using Microsoft.VisualStudio.TextManager.Interop;
 using Task = System.Threading.Tasks.Task;
 
-namespace CollapseRegionExtension
+namespace ToggleRegionsExtension
 {
     /// <summary>
     /// Command handler
@@ -30,7 +30,7 @@ namespace CollapseRegionExtension
         /// <summary>
         /// Command menu group (command set GUID).
         /// </summary>
-        public static readonly Guid CommandSet = new Guid("155b6515-ed99-4e79-8950-2bdf525871db");
+        public static readonly Guid CommandSet = new Guid("e7b8c17f-d4e1-419b-a144-4cfec19ad1a4");
 
         /// <summary>
         /// VS Package that provides this command, not null.
