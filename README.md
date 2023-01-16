@@ -8,6 +8,16 @@ Recognized regions:
 - `<!--region` - .xaml files
 - `#pragma region` - .cpp files
 
+### Installation
+
+This extension is available through the Visual Studio Marketplace. 
+
+- [Toggle Regions for VS2017](https://marketplace.visualstudio.com/items?itemName=CMPhys.ToggleRegions2017)
+- [Toggle Regions for VS2019](https://marketplace.visualstudio.com/items?itemName=CMPhys.ToggleRegions2019)
+- [Toggle Regions for VS2022](https://marketplace.visualstudio.com/items?itemName=CMPhys.ToggleRegions2022)
+
+Alternatively, a `.vsix` installation file can be downloaded from [Releases](https://github.com/mdmower/ToggleRegionsExtension/releases) and manually installed.
+
 ### Configurable Commands
 
 Two commands are added to the Outlining menu: "Expand all regions" and "Collapse all regions".
