@@ -121,7 +121,7 @@
     <value>Toggle Regions Extension</value>
   </data>
   <data name="112" xml:space="preserve">
-    <value>Collapse or expand #regions in code editor tabs.</value>
+    <value>Collapse, expand, and toggle #regions in code editor tabs.</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="400" type="System.Resources.ResXFileRef, System.Windows.Forms">

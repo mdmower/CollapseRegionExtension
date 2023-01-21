@@ -1,16 +1,23 @@
 ## Toggle Regions Extension for Visual Studio
 
-Quickly collapse or expand all region sections in a code editor tab.
+Quickly collapse, expand, and toggle all region sections in a code editor tab.
 
 Recognized regions:
 
-- `#region` - .cs files
-- `<!--region` - .xaml files
-- `#pragma region` - .cpp files
+- `#region`
+- `<!--#region` (`#` and whitespace are optional)
+- `#pragma region`
+
+Learning resources:
+
+- [C# regions](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/preprocessor-directives#defining-regions)
+- [VB regions](https://learn.microsoft.com/en-us/dotnet/visual-basic/language-reference/directives/region-directive)
+- [XAML regions](https://learn.microsoft.com/en-us/visualstudio/xaml-tools/xaml-code-editor?view=vs-2022#xaml-region-support)
+- [C/C++ regions](https://learn.microsoft.com/en-us/cpp/preprocessor/region-endregion?view=msvc-170)
 
 ### Installation
 
-This extension is available through the Visual Studio Marketplace. 
+This extension is available through the Visual Studio Marketplace.
 
 - [Toggle Regions for VS2017](https://marketplace.visualstudio.com/items?itemName=CMPhys.ToggleRegions2017)
 - [Toggle Regions for VS2019](https://marketplace.visualstudio.com/items?itemName=CMPhys.ToggleRegions2019)
@@ -20,12 +27,13 @@ Alternatively, a `.vsix` installation file can be downloaded from [Releases](htt
 
 ### Configurable Commands
 
-Two commands are added to the Outlining menu: "Expand all regions" and "Collapse all regions".
+Three commands are added to the Outlining menu: "Expand all regions", "Collapse all regions", and "Toggle all regions".
 
 These commands are exposed to Visual Studio as:
 
 - `RegionManagement.Expand` - Default shortcut: CTRL+R, CTRL+Num +
 - `RegionManagement.Collapse` - Default shortcut: CTRL+R, CTRL+Num -
+- `RegionManagement.Toggle` - Default shortcut: CTRL+R, CTRL+Num \*
 
 ... and can be remapped in Tools > Options > Environment > Keyboard.
 

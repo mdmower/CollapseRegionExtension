@@ -28,6 +28,11 @@ namespace ToggleRegionsExtension
         public const int CollapseCommandId = 0x0101;
 
         /// <summary>
+        /// Toggle Command ID.
+        /// </summary>
+        public const int ToggleCommandId = 0x0102;
+
+        /// <summary>
         /// Command menu group (command set GUID).
         /// </summary>
         public static readonly Guid CommandSet = new Guid("e7b8c17f-d4e1-419b-a144-4cfec19ad1a4");
@@ -55,6 +60,10 @@ namespace ToggleRegionsExtension
             var collapseCommandId = new CommandID(CommandSet, CollapseCommandId);
             var collapseMenuItem = new MenuCommand(Collapse, collapseCommandId);
             commandService.AddCommand(collapseMenuItem);
+
+            var toggleCommandId = new CommandID(CommandSet, ToggleCommandId);
+            var toggleMenuItem = new MenuCommand(Toggle, toggleCommandId);
+            commandService.AddCommand(toggleMenuItem);
         }
 
         /// <summary>
@@ -128,9 +137,41 @@ namespace ToggleRegionsExtension
                     var (manager, regions) = await GetCurrentDocInfoAsync();
                     foreach (var region in regions)
                     {
-                        if (region.IsCollapsed == false)
+                        if (!region.IsCollapsed)
                         {
                             manager.TryCollapse(region);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ActivityLog.LogError(ex.Source, ex.Message);
+                }
+            });
+        }
+
+        private void Toggle(object sender, EventArgs e)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            _ = _package.JoinableTaskFactory.RunAsync(async () =>
+            {
+                if (_package.DisposalToken.IsCancellationRequested)
+                {
+                    return;
+                }
+
+                try
+                {
+                    var (manager, regions) = await GetCurrentDocInfoAsync();
+                    foreach (var region in regions)
+                    {
+                        if (!region.IsCollapsed)
+                        {
+                            manager.TryCollapse(region);
+                        }
+                        else if (region is ICollapsed collapsed)
+                        {
+                            manager.Expand(collapsed);
                         }
                     }
                 }
@@ -149,8 +190,10 @@ namespace ToggleRegionsExtension
                 ?? throw new ApplicationException($"{nameof(SVsTextManager)} service is not available.");
             var componentModel = await ServiceProvider.GetServiceAsync(typeof(SComponentModel)) as IComponentModel
                 ?? throw new ApplicationException($"{nameof(SComponentModel)} service is not available.");
-            var outlining = componentModel.GetService<IOutliningManagerService>();
-            var editor = componentModel.GetService<IVsEditorAdaptersFactoryService>();
+            var outlining = componentModel.GetService<IOutliningManagerService>()
+                ?? throw new ApplicationException($"{nameof(IOutliningManagerService)} service is not available.");
+            var editor = componentModel.GetService<IVsEditorAdaptersFactoryService>()
+                ?? throw new ApplicationException($"{nameof(IVsEditorAdaptersFactoryService)} service is not available.");
 
             textManager.GetActiveView(1, null, out IVsTextView textViewCurrent);
             if (textViewCurrent == null)
@@ -159,6 +202,11 @@ namespace ToggleRegionsExtension
             }
 
             var wpfView = editor.GetWpfTextView(textViewCurrent);
+            if (wpfView == null)
+            {
+                return emptyResult;
+            }
+
             var outliningManager = outlining.GetOutliningManager(wpfView);
             if (outliningManager == null)
             {
@@ -166,8 +214,8 @@ namespace ToggleRegionsExtension
             }
 
             List<ICollapsible> regions = new List<ICollapsible>();
-            var snapSHot = new SnapshotSpan(wpfView.TextSnapshot, 0, wpfView.TextSnapshot.Length);
-            foreach (var region in outliningManager.GetAllRegions(snapSHot))
+            var snapshot = new SnapshotSpan(wpfView.TextSnapshot, 0, wpfView.TextSnapshot.Length);
+            foreach (var region in outliningManager.GetAllRegions(snapshot))
             {
                 var regionSnapshot = region.Extent.TextBuffer.CurrentSnapshot;
                 var text = region.Extent.GetText(regionSnapshot);
