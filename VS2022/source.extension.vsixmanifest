@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="ToggleRegionsExtension.2e63a415-82bf-463a-a2d0-d8f831a77898" Version="1.6" Language="en-US" Publisher="Matt Mower" />
+        <Identity Id="ToggleRegionsExtension.2e63a415-82bf-463a-a2d0-d8f831a77898" Version="1.7" Language="en-US" Publisher="Matt Mower" />
         <DisplayName>Toggle Regions 2022</DisplayName>
         <Description xml:space="preserve">Collapse, expand, and toggle #regions in code editor tabs.</Description>
         <MoreInfo>https://github.com/mdmower/ToggleRegionsExtension</MoreInfo>
