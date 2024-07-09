@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Editor;
@@ -12,6 +13,14 @@ using Task = System.Threading.Tasks.Task;
 
 namespace ToggleRegionsExtension
 {
+    enum Operation
+    {
+        Expand,
+        Collapse,
+        Toggle,
+        Alternate
+    }
+
     /// <summary>
     /// Command handler
     /// </summary>
@@ -31,6 +40,11 @@ namespace ToggleRegionsExtension
         /// Toggle Command ID.
         /// </summary>
         public const int ToggleCommandId = 0x0102;
+
+        /// <summary>
+        /// Alternate Command ID.
+        /// </summary>
+        public const int AlternateCommandId = 0x0103;
 
         /// <summary>
         /// Command menu group (command set GUID).
@@ -64,6 +78,10 @@ namespace ToggleRegionsExtension
             var toggleCommandId = new CommandID(CommandSet, ToggleCommandId);
             var toggleMenuItem = new MenuCommand(Toggle, toggleCommandId);
             commandService.AddCommand(toggleMenuItem);
+
+            var alternateCommandId = new CommandID(CommandSet, AlternateCommandId);
+            var alternateMenuItem = new MenuCommand(Alternate, alternateCommandId);
+            commandService.AddCommand(alternateMenuItem);
         }
 
         /// <summary>
@@ -96,61 +114,25 @@ namespace ToggleRegionsExtension
 
         private void Expand(object sender, EventArgs e)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-            _ = _package.JoinableTaskFactory.RunAsync(async () =>
-            {
-                if (_package.DisposalToken.IsCancellationRequested)
-                {
-                    return;
-                }
-
-                try
-                {
-                    var (manager, regions) = await GetCurrentDocInfoAsync();
-                    foreach (var region in regions)
-                    {
-                        if (region is ICollapsed collapsed)
-                        {
-                            manager.Expand(collapsed);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ActivityLog.LogError(ex.Source, ex.Message);
-                }
-            });
+            HandleOperation(Operation.Expand);
         }
 
         private void Collapse(object sender, EventArgs e)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-            _ = _package.JoinableTaskFactory.RunAsync(async () =>
-            {
-                if (_package.DisposalToken.IsCancellationRequested)
-                {
-                    return;
-                }
-
-                try
-                {
-                    var (manager, regions) = await GetCurrentDocInfoAsync();
-                    foreach (var region in regions)
-                    {
-                        if (!region.IsCollapsed)
-                        {
-                            manager.TryCollapse(region);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ActivityLog.LogError(ex.Source, ex.Message);
-                }
-            });
+            HandleOperation(Operation.Collapse);
         }
 
         private void Toggle(object sender, EventArgs e)
+        {
+            HandleOperation(Operation.Toggle);
+        }
+
+        private void Alternate(object sender, EventArgs e)
+        {
+            HandleOperation(Operation.Alternate);
+        }
+
+        private void HandleOperation(Operation operation)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             _ = _package.JoinableTaskFactory.RunAsync(async () =>
@@ -163,15 +145,30 @@ namespace ToggleRegionsExtension
                 try
                 {
                     var (manager, regions) = await GetCurrentDocInfoAsync();
+
+                    bool? shouldExpand = null;
+                    if (operation == Operation.Expand)
+                    {
+                        shouldExpand = true;
+                    }
+                    if (operation == Operation.Collapse)
+                    {
+                        shouldExpand = false;
+                    }
+                    else if (operation == Operation.Alternate)
+                    {
+                        shouldExpand = regions.Any(region => region.IsCollapsed);
+                    }
+
                     foreach (var region in regions)
                     {
-                        if (!region.IsCollapsed)
-                        {
-                            manager.TryCollapse(region);
-                        }
-                        else if (region is ICollapsed collapsed)
+                        if (shouldExpand != false && region is ICollapsed collapsed)
                         {
                             manager.Expand(collapsed);
+                        }
+                        else if (shouldExpand != true && !region.IsCollapsed)
+                        {
+                            manager.TryCollapse(region);
                         }
                     }
                 }

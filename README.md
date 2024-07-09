@@ -27,15 +27,22 @@ Alternatively, a `.vsix` installation file can be downloaded from [Releases](htt
 
 ### Configurable Commands
 
-Three commands are added to the Outlining menu: "Expand all regions", "Collapse all regions", and "Toggle all regions".
+The following commands are added to the Outlining menu and can be assigned custom shortcuts:
 
-These commands are exposed to Visual Studio as:
+- Expand all regions
+  - Command: `RegionManagement.Expand`
+  - Default shortcut: CTRL+R, CTRL+Num +
+- Collapse all regions
+  - Command: `RegionManagement.Collapse`
+  - Default shortcut: CTRL+R, CTRL+Num -
+- Toggle all regions - expand collapsed regions and collapse expanded regions
+  - Command: `RegionManagement.Toggle`
+  - Default shortcut: CTRL+R, CTRL+Num \*
+- Alternate all regions - expands all regions if any region is collapsed, otherwise collapses all regions
+  - Command: `RegionManagement.Alternate`
+  - Default shortcut: CTRL+R, CTRL+Num /
 
-- `RegionManagement.Expand` - Default shortcut: CTRL+R, CTRL+Num +
-- `RegionManagement.Collapse` - Default shortcut: CTRL+R, CTRL+Num -
-- `RegionManagement.Toggle` - Default shortcut: CTRL+R, CTRL+Num \*
-
-... and can be remapped in Tools > Options > Environment > Keyboard.
+Remap keyboard shortcuts in Tools > Options > Environment > Keyboard (filter by `RegionManagement`).
 
 ### Compatibility
 

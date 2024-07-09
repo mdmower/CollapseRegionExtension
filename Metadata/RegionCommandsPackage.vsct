@@ -74,6 +74,13 @@
           <ButtonText>Toggle all regions</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidRegionCommandsPackageCmdSet" id="RegionAlternateId" priority="0xFFFF" type="Button">
+        <Parent guid="guidStdEd" id="IDG_VS_EDITOR_OUTLINING_CMDS" />
+        <Strings>
+          <LocCanonicalName>RegionManagement.Alternate</LocCanonicalName>
+          <ButtonText>Alternate all regions</ButtonText>
+        </Strings>
+      </Button>
     </Buttons>
   </Commands>
 
@@ -81,6 +88,7 @@
     <KeyBinding guid="guidRegionCommandsPackageCmdSet" id="RegionExpandId" editor="guidVSStd97" key1="R" mod1="Control" key2="VK_ADD" mod2="Control" />
     <KeyBinding guid="guidRegionCommandsPackageCmdSet" id="RegionCollapseId" editor="guidVSStd97" key1="R" mod1="Control" key2="VK_SUBTRACT" mod2="Control" />
     <KeyBinding guid="guidRegionCommandsPackageCmdSet" id="RegionToggleId" editor="guidVSStd97" key1="R" mod1="Control" key2="VK_MULTIPLY" mod2="Control" />
+    <KeyBinding guid="guidRegionCommandsPackageCmdSet" id="RegionAlternateId" editor="guidVSStd97" key1="R" mod1="Control" key2="VK_DIVIDE" mod2="Control" />
   </KeyBindings>
 
   <Symbols>
@@ -93,6 +101,7 @@
       <IDSymbol name="RegionExpandId" value="0x0100" />
       <IDSymbol name="RegionCollapseId" value="0x0101" />
       <IDSymbol name="RegionToggleId" value="0x0102" />
+      <IDSymbol name="RegionAlternateId" value="0x0103" />
     </GuidSymbol>
 
   </Symbols>
